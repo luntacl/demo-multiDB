@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ulic.core.policy.dao.ExtendInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ulic.core.policy.bean.ExtendInfo" >
+    <id column="product_metadata_id" property="productMetadataId" jdbcType="VARCHAR" />
+    <result column="extend_charge_field" property="extendChargeField" jdbcType="VARCHAR" />
+    <result column="premium_ratio" property="premiumRatio" jdbcType="DOUBLE" />
+    <result column="premium_accept_rule" property="premiumAcceptRule" jdbcType="INTEGER" />
+    <result column="amount_ratio" property="amountRatio" jdbcType="DOUBLE" />
+    <result column="amount_accept_rule" property="amountAcceptRule" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_metadata_id, extend_charge_field, premium_ratio, premium_accept_rule, amount_ratio, 
+    amount_accept_rule, creator, created_time, editor, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from extend_info
+    where product_metadata_id = #{productMetadataId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from extend_info
+    where product_metadata_id = #{productMetadataId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ulic.core.policy.bean.ExtendInfo" >
+    insert into extend_info (product_metadata_id, extend_charge_field, 
+      premium_ratio, premium_accept_rule, amount_ratio, 
+      amount_accept_rule, creator, created_time, 
+      editor, updated_time)
+    values (#{productMetadataId,jdbcType=VARCHAR}, #{extendChargeField,jdbcType=VARCHAR}, 
+      #{premiumRatio,jdbcType=DOUBLE}, #{premiumAcceptRule,jdbcType=INTEGER}, #{amountRatio,jdbcType=DOUBLE}, 
+      #{amountAcceptRule,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{editor,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ulic.core.policy.bean.ExtendInfo" >
+    insert into extend_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productMetadataId != null" >
+        product_metadata_id,
+      </if>
+      <if test="extendChargeField != null" >
+        extend_charge_field,
+      </if>
+      <if test="premiumRatio != null" >
+        premium_ratio,
+      </if>
+      <if test="premiumAcceptRule != null" >
+        premium_accept_rule,
+      </if>
+      <if test="amountRatio != null" >
+        amount_ratio,
+      </if>
+      <if test="amountAcceptRule != null" >
+        amount_accept_rule,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productMetadataId != null" >
+        #{productMetadataId,jdbcType=VARCHAR},
+      </if>
+      <if test="extendChargeField != null" >
+        #{extendChargeField,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumRatio != null" >
+        #{premiumRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="premiumAcceptRule != null" >
+        #{premiumAcceptRule,jdbcType=INTEGER},
+      </if>
+      <if test="amountRatio != null" >
+        #{amountRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="amountAcceptRule != null" >
+        #{amountAcceptRule,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ulic.core.policy.bean.ExtendInfo" >
+    update extend_info
+    <set >
+      <if test="extendChargeField != null" >
+        extend_charge_field = #{extendChargeField,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumRatio != null" >
+        premium_ratio = #{premiumRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="premiumAcceptRule != null" >
+        premium_accept_rule = #{premiumAcceptRule,jdbcType=INTEGER},
+      </if>
+      <if test="amountRatio != null" >
+        amount_ratio = #{amountRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="amountAcceptRule != null" >
+        amount_accept_rule = #{amountAcceptRule,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_metadata_id = #{productMetadataId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ulic.core.policy.bean.ExtendInfo" >
+    update extend_info
+    set extend_charge_field = #{extendChargeField,jdbcType=VARCHAR},
+      premium_ratio = #{premiumRatio,jdbcType=DOUBLE},
+      premium_accept_rule = #{premiumAcceptRule,jdbcType=INTEGER},
+      amount_ratio = #{amountRatio,jdbcType=DOUBLE},
+      amount_accept_rule = #{amountAcceptRule,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      editor = #{editor,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where product_metadata_id = #{productMetadataId,jdbcType=VARCHAR}
+  </update>
+</mapper>

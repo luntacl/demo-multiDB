@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ulic.core.policy.dao.PolicyMapper" >
+  <resultMap id="BaseResultMap" type="com.ulic.core.policy.bean.Policy" >
+    <id column="policy_id" property="policyId" jdbcType="VARCHAR" />
+    <result column="product_metadata_id" property="productMetadataId" jdbcType="VARCHAR" />
+    <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+    <result column="trade_proposal_id" property="tradeProposalId" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="trade_cost" property="tradeCost" jdbcType="BIGINT" />
+    <result column="online_pay" property="onlinePay" jdbcType="INTEGER" />
+    <result column="parent_policy_id" property="parentPolicyId" jdbcType="VARCHAR" />
+    <result column="policy_status" property="policyStatus" jdbcType="INTEGER" />
+    <result column="accepted_time" property="acceptedTime" jdbcType="TIMESTAMP" />
+    <result column="started_time" property="startedTime" jdbcType="TIMESTAMP" />
+    <result column="ended_time" property="endedTime" jdbcType="TIMESTAMP" />
+    <result column="cancel_time" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="handler_server" property="handlerServer" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ulic.core.policy.bean.PolicyWithBLOBs" extends="BaseResultMap" >
+    <result column="policy_content" property="policyContent" jdbcType="LONGVARCHAR" />
+    <result column="response_data" property="responseData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    policy_id, product_metadata_id, channel_id, trade_proposal_id, trade_type, trade_cost, 
+    online_pay, parent_policy_id, policy_status, accepted_time, started_time, ended_time, 
+    cancel_time, client_ip, handler_server, created_time, updated_time, amount
+  </sql>
+  <sql id="Blob_Column_List" >
+    policy_content, response_data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from policy
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from policy
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ulic.core.policy.bean.PolicyWithBLOBs" >
+    insert into policy (policy_id, product_metadata_id, channel_id, 
+      trade_proposal_id, trade_type, trade_cost, 
+      online_pay, parent_policy_id, policy_status, 
+      accepted_time, started_time, ended_time, 
+      cancel_time, client_ip, handler_server, 
+      created_time, updated_time, amount, 
+      policy_content, response_data)
+    values (#{policyId,jdbcType=VARCHAR}, #{productMetadataId,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, 
+      #{tradeProposalId,jdbcType=VARCHAR}, #{tradeType,jdbcType=VARCHAR}, #{tradeCost,jdbcType=BIGINT}, 
+      #{onlinePay,jdbcType=INTEGER}, #{parentPolicyId,jdbcType=VARCHAR}, #{policyStatus,jdbcType=INTEGER}, 
+      #{acceptedTime,jdbcType=TIMESTAMP}, #{startedTime,jdbcType=TIMESTAMP}, #{endedTime,jdbcType=TIMESTAMP}, 
+      #{cancelTime,jdbcType=TIMESTAMP}, #{clientIp,jdbcType=VARCHAR}, #{handlerServer,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{amount,jdbcType=BIGINT}, 
+      #{policyContent,jdbcType=LONGVARCHAR}, #{responseData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ulic.core.policy.bean.PolicyWithBLOBs" >
+    insert into policy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="policyId != null" >
+        policy_id,
+      </if>
+      <if test="productMetadataId != null" >
+        product_metadata_id,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="tradeProposalId != null" >
+        trade_proposal_id,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="tradeCost != null" >
+        trade_cost,
+      </if>
+      <if test="onlinePay != null" >
+        online_pay,
+      </if>
+      <if test="parentPolicyId != null" >
+        parent_policy_id,
+      </if>
+      <if test="policyStatus != null" >
+        policy_status,
+      </if>
+      <if test="acceptedTime != null" >
+        accepted_time,
+      </if>
+      <if test="startedTime != null" >
+        started_time,
+      </if>
+      <if test="endedTime != null" >
+        ended_time,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="handlerServer != null" >
+        handler_server,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="policyContent != null" >
+        policy_content,
+      </if>
+      <if test="responseData != null" >
+        response_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="policyId != null" >
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="productMetadataId != null" >
+        #{productMetadataId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeProposalId != null" >
+        #{tradeProposalId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCost != null" >
+        #{tradeCost,jdbcType=BIGINT},
+      </if>
+      <if test="onlinePay != null" >
+        #{onlinePay,jdbcType=INTEGER},
+      </if>
+      <if test="parentPolicyId != null" >
+        #{parentPolicyId,jdbcType=VARCHAR},
+      </if>
+      <if test="policyStatus != null" >
+        #{policyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="acceptedTime != null" >
+        #{acceptedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startedTime != null" >
+        #{startedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endedTime != null" >
+        #{endedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerServer != null" >
+        #{handlerServer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="policyContent != null" >
+        #{policyContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseData != null" >
+        #{responseData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ulic.core.policy.bean.PolicyWithBLOBs" >
+    update policy
+    <set >
+      <if test="productMetadataId != null" >
+        product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        channel_id = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeProposalId != null" >
+        trade_proposal_id = #{tradeProposalId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCost != null" >
+        trade_cost = #{tradeCost,jdbcType=BIGINT},
+      </if>
+      <if test="onlinePay != null" >
+        online_pay = #{onlinePay,jdbcType=INTEGER},
+      </if>
+      <if test="parentPolicyId != null" >
+        parent_policy_id = #{parentPolicyId,jdbcType=VARCHAR},
+      </if>
+      <if test="policyStatus != null" >
+        policy_status = #{policyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="acceptedTime != null" >
+        accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startedTime != null" >
+        started_time = #{startedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endedTime != null" >
+        ended_time = #{endedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerServer != null" >
+        handler_server = #{handlerServer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="policyContent != null" >
+        policy_content = #{policyContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseData != null" >
+        response_data = #{responseData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ulic.core.policy.bean.PolicyWithBLOBs" >
+    update policy
+    set product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      trade_proposal_id = #{tradeProposalId,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      trade_cost = #{tradeCost,jdbcType=BIGINT},
+      online_pay = #{onlinePay,jdbcType=INTEGER},
+      parent_policy_id = #{parentPolicyId,jdbcType=VARCHAR},
+      policy_status = #{policyStatus,jdbcType=INTEGER},
+      accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+      started_time = #{startedTime,jdbcType=TIMESTAMP},
+      ended_time = #{endedTime,jdbcType=TIMESTAMP},
+      cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      handler_server = #{handlerServer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=BIGINT},
+      policy_content = #{policyContent,jdbcType=LONGVARCHAR},
+      response_data = #{responseData,jdbcType=LONGVARCHAR}
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ulic.core.policy.bean.Policy" >
+    update policy
+    set product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      trade_proposal_id = #{tradeProposalId,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      trade_cost = #{tradeCost,jdbcType=BIGINT},
+      online_pay = #{onlinePay,jdbcType=INTEGER},
+      parent_policy_id = #{parentPolicyId,jdbcType=VARCHAR},
+      policy_status = #{policyStatus,jdbcType=INTEGER},
+      accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+      started_time = #{startedTime,jdbcType=TIMESTAMP},
+      ended_time = #{endedTime,jdbcType=TIMESTAMP},
+      cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      handler_server = #{handlerServer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=BIGINT}
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </update>
+</mapper>
